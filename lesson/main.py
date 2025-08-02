@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import os
 
 from gtts import gTTS
-
+import keyboards as kb
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -79,7 +79,7 @@ async def help(message:Message):
 
 @dp.message(CommandStart())
 async def start(message:Message):
-    await message.answer(f'Приветики, {message.from_user.first_name}')
+    await message.answer(f'Приветики, {message.from_user.first_name}', reply_markup=kb.main)
 
 @dp.message()
 async def start(message:Message):
