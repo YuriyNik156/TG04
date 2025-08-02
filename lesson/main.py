@@ -79,7 +79,7 @@ async def help(message:Message):
 
 @dp.message(CommandStart())
 async def start(message:Message):
-    await message.answer(f'Приветики, {message.from_user.first_name}', reply_markup=kb.main)
+    await message.answer(f'Приветики, {message.from_user.first_name}', reply_markup=await kb.test_keyboard())
 
 @dp.message()
 async def start(message:Message):
