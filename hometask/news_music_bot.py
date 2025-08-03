@@ -18,7 +18,7 @@ async def start(message: Message):
 async def hello(message: Message):
     await message.answer (f"Привет, {message.from_user.first_name}!")
 
-@dp.message(F.text == "До свидания") # Обработка кнопки "До свидания"
+@dp.message(F.text == "Пока") # Обработка кнопки "До свидания"
 async def buy(message: Message):
     await message.answer (f"До свидания, {message.from_user.first_name}!")
 
