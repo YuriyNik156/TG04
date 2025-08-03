@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 
 from config import TOKEN4
 import tg_buttons as tg_b
@@ -26,6 +26,21 @@ async def buy(message: Message):
 @dp.message(Command('links'))
 async def links(message: Message):
     await message.answer("Выберите ссылку", reply_markup=tg_b.inline_buttons)
+
+# При отправке команды /dynamic бот будет показывать инлайн-кнопку "Показать больше".
+@dp.message(Command('dynamic'))
+async def dynamic(message: Message):
+    await message.answer("Нажмите на кнопку ниже:", reply_markup=tg_b.show_more)
+
+@dp.callback_query(F.data == 'show_more')
+async def show_more_callback(callback: CallbackQuery):
+    await callback.message.edit_text("Выберите опцию:", reply_markup=tg_b.dynamic_buttons())
+    await callback.answer()
+
+@dp.callback_query(F.data.in_(["Опция 1", "Опция 2"]))
+async def option_selected(callback: CallbackQuery):
+    await callback.message.answer(f"Вы выбрали {callback.data}")
+    await callback.answer()
 
 async def main():
     await dp.start_polling(bot)
