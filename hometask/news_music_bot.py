@@ -22,6 +22,11 @@ async def hello(message: Message):
 async def buy(message: Message):
     await message.answer (f"До свидания, {message.from_user.first_name}!")
 
+# При отправке команды /links бот будет показывать инлайн-кнопки с URL-ссылками.
+@dp.message(Command('links'))
+async def links(message: Message):
+    await message.answer("Выберите ссылку", reply_markup=tg_b.inline_buttons)
+
 async def main():
     await dp.start_polling(bot)
 
